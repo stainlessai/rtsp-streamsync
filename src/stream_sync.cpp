@@ -18,7 +18,8 @@ void StreamSynchronizer::open_cams(void) {
 
 void StreamSynchronizer::read_frames(std::size_t cap_id) {
     int errors = 0; // for error counting
-    //int step = 0; // for simulating breakdown
+    int step = 0; // for simulating breakdown
+    int cn = 0; // UNUSED
 
     while(1) {
         // if capture device is broken just idle
@@ -41,7 +42,7 @@ void StreamSynchronizer::read_frames(std::size_t cap_id) {
         // create a single FrameData object for every frame and use a shared pointer for management
         std::shared_ptr<FrameData> frame_data = std::make_shared<FrameData>();
 
-        bool success = this->caps[cap_id].read(&np_frame, &width, &height, frame_type, &motion_vectors, &num_mvs, &frame_timestamp);
+        bool success = this->caps[cap_id].read(&np_frame, &step, &width, &height, &cn, frame_type, &motion_vectors, &num_mvs, &frame_timestamp);
 
         // simulate a breakdown
         //if((cap_id == 4) && (step++ >= 400)) success = false;
