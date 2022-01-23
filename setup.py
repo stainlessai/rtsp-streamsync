@@ -15,7 +15,7 @@ stream_sync = Extension('stream_sync',
                                '../video_cap/src/video_cap.cpp',
                                '../video_cap/src/time_cvt.cpp'],
                     extra_compile_args = ['-std=c++17'],
-                    extra_link_args = ['-fPIC', '-Wl,-Bsymbolic'])
+                    extra_link_args = ['-fPIC', '-Wl,-Bsymbolic', '-lm'])
 
 setup (name = 'stream_sync',
        version = '1.0',
