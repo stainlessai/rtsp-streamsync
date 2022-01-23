@@ -9,7 +9,7 @@ RUN apt-get update && \
 
 ###############################################################################
 #
-#							mv-extractor library (legacy version)
+#							mv-extractor library (stainlessai fork)
 #
 ###############################################################################
 
@@ -54,9 +54,6 @@ RUN apt-get update && \
     python3-numpy \
     python3-pkgconfig \
     libgtk-3-dev \
-    libavcodec-dev \
-    libavformat-dev \
-    libswscale-dev \
     libmp3lame-dev \
     zlib1g-dev \
     libx264-dev \
