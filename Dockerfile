@@ -56,7 +56,6 @@ RUN apt-get update && \
     libgtk-3-dev \
     libmp3lame-dev \
     zlib1g-dev \
-    libx264-dev \
     libsdl2-dev \
     libvpx-dev \
     libvdpau-dev \
