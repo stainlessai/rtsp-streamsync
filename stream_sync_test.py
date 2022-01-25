@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import json
 from os.path import exists
+import time
 
 from stream_sync import StreamSynchronizer
 
@@ -9,7 +10,7 @@ from stream_sync import StreamSynchronizer
 if __name__ == "__main__":
 
     def finalize():
-        cv2.destroyAllWindows()
+        #        cv2.destroyAllWindows()
         print("N = {}".format(len(max_dts)))
         print("mean dt_max = {}".format(np.mean(max_dts)))
         print("std dt_max = {}".format(np.std(max_dts)))
@@ -66,9 +67,9 @@ if __name__ == "__main__":
     stream_synchronizer = StreamSynchronizer(cams)
 
 
-    for cap_id, cam in enumerate(cams):
-        cv2.namedWindow("camera_{}".format(cap_id), cv2.WINDOW_NORMAL)
-        cv2.resizeWindow("camera_{}".format(cap_id), 640, 360)
+    #    for cap_id, cam in enumerate(cams):
+    #        cv2.namedWindow("camera_{}".format(cap_id), cv2.WINDOW_NORMAL)
+    #        cv2.resizeWindow("camera_{}".format(cap_id), 640, 360)
 
     try:
 
@@ -79,7 +80,10 @@ if __name__ == "__main__":
             print("##### Step", step, "#####")
             step += 1;
 
+            s = time.time_ns()
             frame_packet = stream_synchronizer.get_frame_packet()
+            e = time.time_ns()
+            print("decoded in "+str((e-s))+" nanoseconds");
 
             if not frame_packet:
                 raise RuntimeError("Received invalid Frame Packet")
@@ -100,12 +104,12 @@ if __name__ == "__main__":
                        " | frame_type:", frame_data["frame_type"],
                        " | mvs shape:", np.shape(frame_data["motion_vector"])))
 
-                cv2.imshow("camera_{}".format(cap_id), frame_data["frame"])
+            #                cv2.imshow("camera_{}".format(cap_id), frame_data["frame"])
 
             max_dts.append(np.max(timestamps) - np.min(timestamps))
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
-               break
+                break
 
         finalize()
 
