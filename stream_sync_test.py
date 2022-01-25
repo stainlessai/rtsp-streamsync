@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+import json
+from os.path import exists
 
 from stream_sync import StreamSynchronizer
 
@@ -12,50 +14,54 @@ if __name__ == "__main__":
         print("mean dt_max = {}".format(np.mean(max_dts)))
         print("std dt_max = {}".format(np.std(max_dts)))
 
-    cams = [
-        # cam_0
-        {"source": "rtsp://user:SIMTech2019@172.20.114.22:554/cam/realmonitor?channel=1&subtype=0",
-         "calibration_parameters": "camera_calibration/calibration_parameters/0",
-         "frame_width": 1920,
-         "frame_height": 1080,
-         "frame_rate": 15.0},
-        # cam 1
-        {"source": "rtsp://user:SIMTech2019@172.20.114.23:554/cam/realmonitor?channel=1&subtype=0",
-         "calibration_parameters": "camera_calibration/calibration_parameters/1",
-         "frame_width": 1920,
-         "frame_height": 1080,
-         "frame_rate": 15.0},
-        # cam 2
-        {"source": "rtsp://user:SIMTech2019@172.20.114.24:554/cam/realmonitor?channel=1&subtype=0",
-         "calibration_parameters": "camera_calibration/calibration_parameters/0",
-         "frame_width": 1920,
-         "frame_height": 1080,
-         "frame_rate": 15.0},
-        # cam 3
-        {"source": "rtsp://user:SIMTech2019@172.20.114.25:554/cam/realmonitor?channel=1&subtype=0",
-         "calibration_parameters": "camera_calibration/calibration_parameters/1",
-         "frame_width": 1920,
-         "frame_height": 1080,
-         "frame_rate": 15.0},
-        # cam 4
-        {"source": "rtsp://user:SIMTech2019@172.20.114.26:554/cam/realmonitor?channel=1&subtype=0",
-         "calibration_parameters": "camera_calibration/calibration_parameters/0",
-         "frame_width": 1920,
-         "frame_height": 1080,
-         "frame_rate": 15.0},
-        # cam 5
-        {"source": "rtsp://user:SIMTech2019@172.20.114.27:554/cam/realmonitor?channel=1&subtype=0",
-         "calibration_parameters": "camera_calibration/calibration_parameters/1",
-         "frame_width": 1920,
-         "frame_height": 1080,
-         "frame_rate": 15.0},
-        # cam 6
-        {"source": "rtsp://user:SIMTech2019@172.20.114.28:554/cam/realmonitor?channel=1&subtype=0",
-         "calibration_parameters": "camera_calibration/calibration_parameters/0",
-         "frame_width": 1920,
-         "frame_height": 1080,
-         "frame_rate": 15.0}
-    ]
+    if exists("cams.json"):
+        infile = open('cams.json','r')
+        cams = json.loads(infile.read())
+    else:
+        cams = [
+            # cam_0
+            {"source": "rtsp://user:SIMTech2019@172.20.114.22:554/cam/realmonitor?channel=1&subtype=0",
+             "calibration_parameters": "camera_calibration/calibration_parameters/0",
+             "frame_width": 1920,
+             "frame_height": 1080,
+             "frame_rate": 15.0},
+            # cam 1
+            {"source": "rtsp://user:SIMTech2019@172.20.114.23:554/cam/realmonitor?channel=1&subtype=0",
+             "calibration_parameters": "camera_calibration/calibration_parameters/1",
+             "frame_width": 1920,
+             "frame_height": 1080,
+             "frame_rate": 15.0},
+            # cam 2
+            {"source": "rtsp://user:SIMTech2019@172.20.114.24:554/cam/realmonitor?channel=1&subtype=0",
+             "calibration_parameters": "camera_calibration/calibration_parameters/0",
+             "frame_width": 1920,
+             "frame_height": 1080,
+             "frame_rate": 15.0},
+            # cam 3
+            {"source": "rtsp://user:SIMTech2019@172.20.114.25:554/cam/realmonitor?channel=1&subtype=0",
+             "calibration_parameters": "camera_calibration/calibration_parameters/1",
+             "frame_width": 1920,
+             "frame_height": 1080,
+             "frame_rate": 15.0},
+            # cam 4
+            {"source": "rtsp://user:SIMTech2019@172.20.114.26:554/cam/realmonitor?channel=1&subtype=0",
+             "calibration_parameters": "camera_calibration/calibration_parameters/0",
+             "frame_width": 1920,
+             "frame_height": 1080,
+             "frame_rate": 15.0},
+            # cam 5
+            {"source": "rtsp://user:SIMTech2019@172.20.114.27:554/cam/realmonitor?channel=1&subtype=0",
+             "calibration_parameters": "camera_calibration/calibration_parameters/1",
+             "frame_width": 1920,
+             "frame_height": 1080,
+             "frame_rate": 15.0},
+            # cam 6
+            {"source": "rtsp://user:SIMTech2019@172.20.114.28:554/cam/realmonitor?channel=1&subtype=0",
+             "calibration_parameters": "camera_calibration/calibration_parameters/0",
+             "frame_width": 1920,
+             "frame_height": 1080,
+             "frame_rate": 15.0}
+        ]
 
     stream_synchronizer = StreamSynchronizer(cams)
 
