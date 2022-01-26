@@ -1,11 +1,26 @@
 from distutils.core import setup, Extension
 import pkgconfig
 import numpy as np
+import os
 
 d = pkgconfig.parse('libavformat libswscale opencv4')
 
+# Raise error if the user forgot to tell us where ffmpeg was installed
+ffmpeg_dir = os.environ.get("FFMPEG_INSTALL_DIR", "")
+if not ffmpeg_dir:
+    raise AssertionError(
+        "setup.py needs to know where ffmpeg was installed. Make sure the "
+        "'FFMPEG_INSTALL_DIR' environment variable is defined."
+    )
+if not os.path.isdir(ffmpeg_dir):
+    raise ValueError(
+        "setup.py needs to know where ffmpeg was installed. 'FFMPEG_INSTALL_DIR' "
+        " was defined but does not point to a directory. Found: "
+        f"FFMPEG_INSTALL_DIR={ffmpeg_dir}"
+    )
+
 stream_sync = Extension('stream_sync',
-                    include_dirs = ['/home/ffmpeg_sources/ffmpeg',
+                    include_dirs = [ffmpeg_dir,
                                     *d['include_dirs'],
                                     np.get_include()],
                     library_dirs = d['library_dirs'],

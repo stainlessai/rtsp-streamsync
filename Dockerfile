@@ -75,6 +75,7 @@ RUN cd $HOME/video_cap && \
 ###############################################################################
 
 WORKDIR $HOME/stream_sync
+ENV FFMPEG_INSTALL_DIR "/home/ffmpeg_sources/ffmpeg"
 
 COPY setup.py $HOME/stream_sync
 COPY src $HOME/stream_sync/src/
